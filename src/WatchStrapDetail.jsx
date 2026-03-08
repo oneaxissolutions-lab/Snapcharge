@@ -68,9 +68,35 @@ const WatchStrapDetail = () => {
   const related = getRelatedWatchStraps(product.id);
   const delivery = product.deliveryReturn || {};
 
+  const handleAddToCart = () => {
+    addToCart({
+      id: `${product.id}-${selectedVariant.label}`,
+      name: `${product.name} (${selectedVariant.label})`,
+      price: selectedVariant.price,
+      image: selectedImage || product.images?.[0],
+      subtitle: product.details,
+      variant: selectedVariant.label,
+      quantity: 1,
+    });
+  };
+
+  const handleBookNow = () => {
+    const buyNowItem = {
+      id: `${product.id}-${selectedVariant.label}`,
+      name: `${product.name} (${selectedVariant.label})`,
+      price: selectedVariant.price,
+      image: selectedImage || product.images?.[0],
+      subtitle: product.details,
+      quantity: 1,
+      variant: selectedVariant.label,
+    };
+
+    localStorage.setItem("snapcharge_buy_now", JSON.stringify(buyNowItem));
+    navigate("/checkout");
+  };
+
   return (
     <div className="min-h-screen bg-[#FAEBD7] pt-24 pb-16 px-4 sm:px-6">
-      {/* BACK */}
       <div className="max-w-6xl mx-auto mb-6">
         <button
           onClick={() => navigate(-1)}
@@ -80,9 +106,7 @@ const WatchStrapDetail = () => {
         </button>
       </div>
 
-      {/* TOP SECTION */}
       <div className="max-w-6xl mx-auto bg-[#f6ebdd] rounded-[32px] p-6 sm:p-8 flex flex-col lg:flex-row gap-8">
-        {/* LEFT */}
         <div className="flex-1">
           <div className="bg-white rounded-3xl flex items-center justify-center h-[320px] sm:h-[380px] mb-5">
             {selectedImage ? (
@@ -124,7 +148,6 @@ const WatchStrapDetail = () => {
           </div>
         </div>
 
-        {/* RIGHT */}
         <div className="flex-1 flex flex-col">
           <h1 className="text-2xl sm:text-3xl font-bold text-[#2f4737] leading-snug">
             {product.name}
@@ -142,7 +165,6 @@ const WatchStrapDetail = () => {
             </span>
           </div>
 
-          {/* VARIANTS */}
           <div className="mt-6">
             <p className="text-sm font-semibold text-[#2f4737] mb-2">
               Select Size
@@ -173,29 +195,23 @@ const WatchStrapDetail = () => {
 
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <button
-              onClick={() =>
-                addToCart({
-                  id: `${product.id}-${selectedVariant.label}`,
-                  name: `${product.name} (${selectedVariant.label})`,
-                  price: selectedVariant.price,
-                  image: selectedImage || product.images?.[0],
-                  subtitle: product.details,
-                })
-              }
+              onClick={handleAddToCart}
               className="flex-1 bg-[#7aa874] hover:bg-[#6b9a65] text-white py-3 rounded-full font-semibold text-sm sm:text-base transition"
             >
               ADD TO CART
             </button>
-            <button className="flex-1 bg-white text-[#2f4737] border border-[#d9d9d9] hover:bg-[#f8f4ee] py-3 rounded-full font-semibold text-sm sm:text-base transition">
+
+            <button
+              onClick={handleBookNow}
+              className="flex-1 bg-white text-[#2f4737] border border-[#d9d9d9] hover:bg-[#f8f4ee] py-3 rounded-full font-semibold text-sm sm:text-base transition"
+            >
               BOOK NOW
             </button>
           </div>
         </div>
       </div>
 
-      {/* TABS + WHY BUY */}
       <div className="max-w-6xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_320px] gap-6 items-start">
-        {/* LEFT SIDE */}
         <div className="min-w-0">
           <div className="flex flex-wrap gap-10 border-b border-[#e7d9c2] text-sm font-semibold text-[#9aa3b2]">
             <button
@@ -264,7 +280,6 @@ const WatchStrapDetail = () => {
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="bg-white rounded-[24px] shadow-sm border border-[#e8e1d4] px-6 py-6 text-sm text-[#56665a] h-fit self-start">
           <h3 className="font-semibold text-[#2f4737] mb-3">
             Why buy from SnapCharge?
@@ -278,7 +293,6 @@ const WatchStrapDetail = () => {
         </div>
       </div>
 
-      {/* RELATED */}
       {related.length > 0 && (
         <div className="max-w-6xl mx-auto mt-14">
           <h2 className="text-2xl font-bold text-[#2f5a4d] mb-6">

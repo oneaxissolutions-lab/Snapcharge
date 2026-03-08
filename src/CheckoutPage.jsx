@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = "https://snapcharge.onrender.com";
+
 const CheckoutPage = () => {
   const navigate = useNavigate();
 
@@ -91,7 +93,7 @@ const CheckoutPage = () => {
         amount,
       };
 
-      const orderRes = await fetch("http://localhost:5000/api/payment/create-order", {
+      const orderRes = await fetch(`${API_URL}/api/payment/create-order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +118,7 @@ const CheckoutPage = () => {
         order_id: orderData.razorpayOrderId,
         handler: async function (response) {
           try {
-            const verifyRes = await fetch("http://localhost:5000/api/payment/verify-payment", {
+            const verifyRes = await fetch(`${API_URL}/api/payment/verify-payment`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
