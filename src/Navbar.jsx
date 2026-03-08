@@ -78,6 +78,22 @@ const Navbar = () => {
             {/* DESKTOP */}
             <nav className="ml-auto hidden md:flex items-center gap-8 text-[15px] font-medium">
               <Dropdown
+                label="Charging Solutions"
+                items={chargingItems}
+                openMenu={openMenu}
+                setOpenMenu={setOpenMenu}
+                name="charging"
+                routes={chargingRoutes}
+              />
+
+              <Link
+                to="/screen-protectors"
+                className="text-[#436056] hover:text-[#9DC183] transition"
+              >
+                Screen Protector
+              </Link>
+
+              <Dropdown
                 label="Covers"
                 items={coverItems}
                 openMenu={openMenu}
@@ -94,22 +110,6 @@ const Navbar = () => {
                 name="watch"
                 routes={watchRoutes}
               />
-
-              <Dropdown
-                label="Charging Solutions"
-                items={chargingItems}
-                openMenu={openMenu}
-                setOpenMenu={setOpenMenu}
-                name="charging"
-                routes={chargingRoutes}
-              />
-
-              <Link
-                to="/screen-protectors"
-                className="text-[#436056] hover:text-[#9DC183] transition"
-              >
-                Screen Protector
-              </Link>
 
               <Link
                 to="/cart"
@@ -151,18 +151,6 @@ const Navbar = () => {
           {mobileOpen && (
             <div className="md:hidden border-t border-[#9DC183] bg-[#fffaf2] px-4 pb-4">
               <MobileSection
-                title="Covers"
-                items={coverItems}
-                routes={coverRoutes}
-                setMobileOpen={setMobileOpen}
-              />
-              <MobileSection
-                title="Watch Accessories"
-                items={watchItems}
-                routes={watchRoutes}
-                setMobileOpen={setMobileOpen}
-              />
-              <MobileSection
                 title="Charging Solutions"
                 items={chargingItems}
                 routes={chargingRoutes}
@@ -176,6 +164,20 @@ const Navbar = () => {
               >
                 Screen Protector
               </Link>
+
+              <MobileSection
+                title="Covers"
+                items={coverItems}
+                routes={coverRoutes}
+                setMobileOpen={setMobileOpen}
+              />
+
+              <MobileSection
+                title="Watch Accessories"
+                items={watchItems}
+                routes={watchRoutes}
+                setMobileOpen={setMobileOpen}
+              />
             </div>
           )}
         </header>
